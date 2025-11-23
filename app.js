@@ -7,6 +7,8 @@ const expressSession = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var passport = require('passport');
+
 
 var app = express();
 
@@ -17,7 +19,7 @@ app.set('view engine', 'ejs');
 app.use(expressSession({
   resave: false,
   saveUninitialized: false,
-  resave: "hey hey hey"
+  secret: "hey hey hey"
 }))
 app.use(passport.initialize());              // Line 1
 app.use(passport.session());                 // Line 2

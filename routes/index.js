@@ -12,6 +12,10 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+router.get("/profile", isLoggedIn, function (req, res, next) {
+  res.send("profile");
+});
+
 //REGISTER FORM
 router.post("/register", async function (req, res, next) {
   const userData = new userModel({
@@ -37,5 +41,20 @@ router.post(
   }),
   function (req, res) {}
 );
+
+//LOGOUT FROM
+router.post("/logout", function (req, res, next) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  })
+});
+
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/");
+}
 
 module.exports = router;
